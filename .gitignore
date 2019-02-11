@@ -1,0 +1,25 @@
+
+# ignore the settings folder and files for VSCode and PSS
+.vscode/*
+*.psproj
+*TempPoint*
+
+# Ignore staging info from Visual Studio
+library/ScienceLogic-SL1/.vs/*
+library/ScienceLogic-SL1/ScienceLogic-SL1/bin/*
+library/ScienceLogic-SL1/ScienceLogic-SL1/obj/*
+
+# ignore PowerShell Studio MetaData
+ScienceLogic-SL1/ScienceLogic-SL1.psproj
+ScienceLogic-SL1/ScienceLogic-SL1.psproj.bak
+ScienceLogic-SL1/ScienceLogic-SL1.psprojs
+ScienceLogic-SL1/ScienceLogic-SL1.psproj
+
+# ignore the TestResults
+TestResults/*
+
+# ignore the publishing Directory
+publish/*
+
+#ignore the private data
+PrivateData/*
