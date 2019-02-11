@@ -1,0 +1,11 @@
+﻿TOPIC
+	about_ScienceLogic_SL1
+	
+SHORT DESCRIPTION
+	Explains how to use the ScienceLogic_SL1 powershell module
+	
+LONG DESCRIPTION
+	<Insert Content here>
+
+KEYWORDS
+	ScienceLogic_SL1
