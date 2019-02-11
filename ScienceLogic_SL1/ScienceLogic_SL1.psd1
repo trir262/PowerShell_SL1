@@ -3,22 +3,22 @@
 	ModuleToProcess = 'ScienceLogic_SL1.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '1.0.0'
+	ModuleVersion = '0.1.0'
 	
 	# ID used to uniquely identify this module
 	GUID = 'be9aa474-0ee2-475a-a9c3-0d16220ed6c1'
 	
 	# Author of this module
-	Author = 'TRIR262'
+	Author = 'Tom Robijns'
 	
 	# Company or vendor of this module
-	CompanyName = 'MyCompany'
+	CompanyName = ''
 	
 	# Copyright statement for this module
-	Copyright = 'Copyright (c) 2019 TRIR262'
+	Copyright = 'Copyright (c) 2019 Tom Robijns'
 	
 	# Description of the functionality provided by this module
-	Description = 'Module for ScienceLogic API and GraphQL'
+	Description = 'This module is a wrapper for the ScienceLogic API and ScienceLogic GraphQL possibilities. Use this in your environment if you do not want to learn the ScienceLogic API or GraphQL yourself'
 	
 	# Minimum version of the Windows PowerShell engine required by this module
 	PowerShellVersion = '5.0'
@@ -70,19 +70,22 @@
 		PSData = @{
 			
 			# Tags applied to this module. These help with module discovery in online galleries.
-			# Tags = @()
+			Tags = @('Windows', 'PSEdition_Desktop')
 			
 			# A URL to the license for this module.
-			# LicenseUri = ''
+			LicenseUri = 'https://github.com/trir262/PowerShell_SL1/blob/master/LICENSE'
 			
 			# A URL to the main website for this project.
-			# ProjectUri = ''
+			ProjectUri = 'https://github.com/trir262/PowerShell_SL1'
 			
 			# A URL to an icon representing this module.
 			# IconUri = ''
 			
+			# Prerelease version, we are not ready yet.
+			Prerelase = 'alpha'
+
 			# ReleaseNotes of this module
-			# ReleaseNotes = ''
+			ReleaseNotes = '0.1.0 Initial version of the ScienceLogic API & GraphQL Module'
 			
 		} # End of PSData hashtable
 		
