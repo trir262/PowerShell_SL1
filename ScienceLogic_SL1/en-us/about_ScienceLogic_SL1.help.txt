@@ -2,10 +2,10 @@
 	about_ScienceLogic_SL1
 	
 SHORT DESCRIPTION
-	Explains how to use the ScienceLogic_SL1 powershell module
+	Module to wrap the ScienceLogic API and GraphQL possibilities
 	
 LONG DESCRIPTION
-	<Insert Content here>
+	This module is a wrapper for the ScienceLogic API and the ScienceLogic GraphQL. It allows you to get information from and store data to a ScienceLogic platform.
 
 KEYWORDS
 	ScienceLogic_SL1

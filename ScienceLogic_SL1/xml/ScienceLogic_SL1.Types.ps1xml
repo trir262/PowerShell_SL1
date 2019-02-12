@@ -1,37 +1,59 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Types>
-  <!-- Foo.Bar -->
   <Type>
-    <Name>Deserialized.Foo.Bar</Name>
-    <Members>
-      <MemberSet>
-        <Name>PSStandardMembers</Name>
-        <Members>
-          <NoteProperty>
-            <Name>
-              TargetTypeForDeserialization
-            </Name>
-            <Value>
-              Foo.Bar
-            </Value>
-          </NoteProperty>
-        </Members>
-      </MemberSet>
-    </Members>
+    <Name>device</Name>
+    <Members />
   </Type>
   <Type>
-    <Name>Foo.Bar</Name>
-    <Members>
-      <CodeProperty IsHidden="true">
-        <Name>SerializationData</Name>
-        <GetCodeReference>
-          <TypeName>PSFramework.Serialization.SerializationTypeConverter</TypeName>
-          <MethodName>GetSerializationData</MethodName>
-        </GetCodeReference>
-      </CodeProperty>
-    </Members>
-    <TypeConverter>
-      <TypeName>PSFramework.Serialization.SerializationTypeConverter</TypeName>
-    </TypeConverter>
+    <Name>organization</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>snmpcredential</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>dbcredential</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>soapcredential</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>ldapcredential</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>basiccredential</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>sshcredential</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>powershellcredential</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>template</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>devicegroup</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>collectorgroup</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>appliance</Name>
+    <Members />
+  </Type>
+  <Type>
+    <Name>discovery</Name>
+    <Members />
   </Type>
 </Types>
