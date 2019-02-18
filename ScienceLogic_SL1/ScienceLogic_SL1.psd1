@@ -1,9 +1,9 @@
 @{
 	# Script module or binary module file associated with this manifest
-	ModuleToProcess = 'ScienceLogic_SL1.psm1'
+	RootModule = 'ScienceLogic_SL1.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '0.1.0'
+	ModuleVersion = '0.1.4'
 	
 	# ID used to uniquely identify this module
 	GUID = 'be9aa474-0ee2-475a-a9c3-0d16220ed6c1'
@@ -33,10 +33,10 @@
 	# RequiredAssemblies = @('bin\ScienceLogic_SL1.dll')
 	
 	# Type files (.ps1xml) to be loaded when importing this module
-	# TypesToProcess = @('xml\ScienceLogic_SL1.Types.ps1xml')
+	TypesToProcess = @('xml\ScienceLogic_SL1.Types.ps1xml')
 	
 	# Format files (.ps1xml) to be loaded when importing this module
-	# FormatsToProcess = @('xml\ScienceLogic_SL1.Format.ps1xml')
+	#FormatsToProcess = @('xml\ScienceLogic_SL1.Format.ps1xml')
 	
 	# Functions to export from this module
 	FunctionsToExport = @(
@@ -85,9 +85,12 @@
 			Prerelase = 'alpha'
 
 			# ReleaseNotes of this module
-			ReleaseNotes = '0.1.0 Initial version of the ScienceLogic API & GraphQL Module'
+			ReleaseNotes = '0.1 Initial version of the ScienceLogic API & GraphQL Module'
 			
 		} # End of PSData hashtable
 		
 	} # End of PrivateData hashtable
 }
+
+
+

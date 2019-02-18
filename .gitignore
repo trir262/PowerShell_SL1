@@ -23,3 +23,6 @@ publish/*
 
 #ignore the private data
 PrivateData/*
+
+#Ignore Artifact directory
+ScienceLogic_SL1/Artifacts
