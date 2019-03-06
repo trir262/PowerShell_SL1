@@ -14,7 +14,12 @@ The script you ran
 
 ~~~
 
-The exception that occurred
-~~~text
+The result that was expected
+~~~none
+
+~~~
+
+The result that you received
+~~~none
 
 ~~~
