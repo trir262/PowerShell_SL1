@@ -1,3 +1,5 @@
+Remove-Module ScienceLogic_SL1 -ErrorAction Ignore
+Import-Module "$PSScriptRoot\..\..\ScienceLogic_SL1.psd1"
 InModuleScope 'ScienceLogic_SL1' {
     Describe 'Connect-SL1' {
         BeforeAll {
