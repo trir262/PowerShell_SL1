@@ -22,30 +22,6 @@ task Analyze {
     }
 }
 
-task UpdateVersion {
-    try
-    {
-        $moduleManifestFile = "$(((("$($BuildFile)" -split '\\')[-1] -split '\.')[0]+'.psd1'))"
-        $manifestContent = Get-Content $moduleManifestFile -Raw
-        [version]$version = [regex]::matches($manifestContent,"ModuleVersion\s=\s\'(?<version>(\d+\.)?(\d+\.)?(\*|\d+))") | ForEach-Object {$_.groups['version'].value}
-        $newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, ($version.Build + 1)
-
-        $replacements = @{
-            "ModuleVersion = '.*'" = "ModuleVersion = '$newVersion'"
-        }
-
-        $replacements.GetEnumerator() | ForEach-Object {
-            $manifestContent = $manifestContent -replace $_.Key,$_.Value
-        }
-        $manifestContent | Set-Content -Path "$BuildRoot\$moduleManifestFile"
-    }
-    catch
-    {
-        Write-Error -Message $_.Exception.Message
-        $host.SetShouldExit($LastExitCode)
-    }
-}
-
 task Clean {
     $Artifacts = "$BuildRoot\Artifacts\$((("$($BuildFile)" -split '\\')[-1] -split '\.')[0])"
     
@@ -70,4 +46,28 @@ task Archive {
 
 task Publish {
 	Publish-Module -Path "$BuildRoot\Artifacts\$((("$($BuildFile)" -split '\\')[-1] -split '\.')[0])" -NuGetApiKey (Get-Content "$($BuildRoot)\..\PrivateData\APIKey.txt")
+}
+
+task UpdateVersion {
+    try
+    {
+        $moduleManifestFile = "$(((("$($BuildFile)" -split '\\')[-1] -split '\.')[0]+'.psd1'))"
+        $manifestContent = Get-Content $moduleManifestFile -Raw
+        [version]$version = [regex]::matches($manifestContent,"ModuleVersion\s=\s\'(?<version>(\d+\.)?(\d+\.)?(\*|\d+))") | ForEach-Object {$_.groups['version'].value}
+        $newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, ($version.Build + 1)
+
+        $replacements = @{
+            "ModuleVersion = '.*'" = "ModuleVersion = '$newVersion'"
+        }
+
+        $replacements.GetEnumerator() | ForEach-Object {
+            $manifestContent = $manifestContent -replace $_.Key,$_.Value
+        }
+        $manifestContent | Set-Content -Path "$BuildRoot\$moduleManifestFile"
+    }
+    catch
+    {
+        Write-Error -Message $_.Exception.Message
+        $host.SetShouldExit($LastExitCode)
+    }
 }

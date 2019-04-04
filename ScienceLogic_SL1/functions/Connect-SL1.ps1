@@ -16,10 +16,15 @@
 			$Script:SL1Defaults.APIRoot = $Uri
 			$Script:SL1Defaults.Credential = $Credential
 			$Result = Invoke-SL1Request Get "$($Script:SL1Defaults.APIRoot)/api/account/_self"
-			if ($Result.StatusCode -ne 200) {
-				$Script:SL1Defaults.Isconnected = $false
-				throw "Unsuccessful logon!"
-			} else { $Script:SL1Defaults.IsConnected = $true }
+			if ($Result) {
+
+				if ($Result.StatusCode -ne 200) {
+					$Script:SL1Defaults.Isconnected = $false
+					throw "Unsuccessful logon!"
+				} else { $Script:SL1Defaults.IsConnected = $true }
+			} else {
+				throw '$Result is empty!'
+			}
 
 		} else {
 			$Result = Invoke-SL1Request Get "$($Script:SL1Defaults.APIRoot)/api/account/_self"

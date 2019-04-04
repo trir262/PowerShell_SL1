@@ -1,5 +1,16 @@
 $script:ModuleRoot = $PSScriptRoot
 $script:ModuleVersion = (Import-PowerShellDataFile -Path "$($script:ModuleRoot)\ScienceLogic_SL1.psd1").ModuleVersion
+$Script:SL1Defaults = [pscustomobject]@{
+	APIRoot = $null
+	Credential = $null
+	FormatResponse = $false
+	HideFilterInfo = 1
+	DefaultLimit = 100
+	DefaultPageSize = 500
+	IgnoreSSLErrors = $false
+	IsConnected = $false
+}
+
 
 # Detect whether at some level dotsourcing was enforced
 $script:doDotSource = Get-PSFConfigValue -FullName ScienceLogic_SL1.Import.DoDotSource -Fallback $false
