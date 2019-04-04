@@ -1,17 +1,21 @@
-﻿task . InstallDependencies, Clean , Analyze, Archive , Publish, UpdateVersion
+﻿task . InstallDependencies, Clean , Analyze, Analyze_pester, Archive , Publish, UpdateVersion
 
 task InstallDependencies {
     Install-Module Pester -Force
     Install-Module PSScriptAnalyzer -Force
 }
 
+task Analyze_pester {
+    . .\tests\pester.ps1 -TestGeneral:$True
+}
 task Analyze {
+#    write-host $BuildRoot
     $scriptAnalyzerParams = @{
         Path = "$BuildRoot\"
         Severity = @('Error', 'Warning')
         Recurse = $true
         Verbose = $false
-        ExcludeRule = @('PSUseDeclaredVarsMoreThanAssignments', 'PSAvoidGlobalVars', 'PSAvoidUsingInvokeExpression')
+        ExcludeRule = @('PSUseDeclaredVarsMoreThanAssignments', 'PSAvoidGlobalVars', 'PSAvoidUsingInvokeExpression','PSAvoidUsingConvertToSecureStringWithPlainText')
     }
 
     $saResults = Invoke-ScriptAnalyzer @scriptAnalyzerParams | Where-Object { $_.ScriptName -notmatch 'Build\.ps1'}

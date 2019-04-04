@@ -1,4 +1,4 @@
-param (
+﻿param (
 	$TestGeneral = $true,
 	
 	$TestFunctions = $true,
@@ -16,8 +16,8 @@ Write-PSFMessage -Level Important -Message "Starting Tests"
 Write-PSFMessage -Level Important -Message "Importing Module"
 
 Remove-Module ScienceLogic_SL1 -ErrorAction Ignore
-Import-Module "$PSScriptRoot\..\ScienceLogic_SL1.psd1"
-Import-Module "$PSScriptRoot\..\ScienceLogic_SL1.psm1" -Force
+Import-Module "$PSScriptRoot\ScienceLogic_SL1.psd1"
+Import-Module "$PSScriptRoot\ScienceLogic_SL1.psm1" -Force
 
 
 
@@ -30,7 +30,7 @@ $testresults = @()
 if ($TestGeneral)
 {
 	Write-PSFMessage -Level Important -Message "Modules imported, proceeding with general tests"
-	foreach ($file in (Get-ChildItem "$PSScriptRoot\general" -Filter "*.Tests.ps1"))
+	foreach ($file in (Get-ChildItem "$PSScriptRoot\tests\general" -Filter "*.Tests.ps1"))
 	{
 		Write-PSFMessage -Level Significant -Message "  Executing <c='em'>$($file.Name)</c>"
 		$results = Invoke-Pester -Script $file.FullName -Show $Show -PassThru
@@ -57,7 +57,7 @@ if ($TestGeneral)
 if ($TestFunctions)
 {
 Write-PSFMessage -Level Important -Message "Proceeding with individual tests"
-	foreach ($file in (Get-ChildItem "$PSScriptRoot\functions" -Recurse -File -Filter "*Tests.ps1"))
+	foreach ($file in (Get-ChildItem "$PSScriptRoot\tests\functions" -Recurse -File -Filter "*Tests.ps1"))
 	{
 		if ($file.Name -notlike $Include) { continue }
 		if ($file.Name -like $Exclude) { continue }
