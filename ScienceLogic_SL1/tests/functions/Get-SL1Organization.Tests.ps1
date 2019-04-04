@@ -30,13 +30,24 @@ InModuleScope 'ScienceLogic_SL1' {
                 }
             } -ParameterFilter { $Uri -and $Uri -match '/api/organization\?'}
 
-            #Mock for /api/organization? &extended_fetch=1
+            #Mock for /api/organization? contains=customerX&extended_fetch=1
             Mock Invoke-SL1Request { 
                 return New-Object -TypeName psobject -Property @{ 
                     StatusCode = [System.Net.HttpStatusCode]::OK
                     Content = (ConvertTo-Json @{'/api/organization/1'=[pscustomobject]@{name='customerX'}}) 
                 } 
-            } -ParameterFilter { $Uri -and $Uri -match '/api/organization\?.+\&extended_fetch=1'}
+            } -ParameterFilter { $Uri -and $Uri -match '/api/organization\?.+contains=customerX&?.+?\&extended_fetch=1'}
+
+            #Mock for /api/organization? contains=customer&extended_fetch=1
+            Mock Invoke-SL1Request { 
+                return New-Object -TypeName psobject -Property @{ 
+                    StatusCode = [System.Net.HttpStatusCode]::OK
+                    Content = (
+                        @{'/api/organization/1'=[pscustomobject]@{name='customerX'}
+                        '/api/organization/2'=[pscustomobject]@{name='customerY'} } | ConvertTo-Json
+                    ) 
+                } 
+            } -ParameterFilter { $Uri -and $Uri -match '/api/organization\?.+contains=customer&.+?\&extended_fetch=1'}
 
             Connect-SL1 -Uri $Uri -Credential $GoodCred
             $Cmd = 'Get-SL1Organization'
@@ -59,22 +70,31 @@ InModuleScope 'ScienceLogic_SL1' {
         Context 'Testing Id Parameter' {
             It 'Parameter Id is higher than 0 returns Organization' {
                 Get-SL1Organization -Id 1 | should -not -be $null
-                #Assert-MockCalled -CommandName Invoke-SL1Request -Times 1 -Scope It
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 1 -Scope It
             }
 
             It 'Parameter Id is below 0 throws error' {
                 { Get-SL1Organization -Id -5} | Should -Throw
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 0 -Scope It
             }
         }
 
         Context 'Testing Filter Parameter' {
             It 'Parameter Filter is blank throws error' {
                 { Get-SL1Organization -Filter '' } | Should -Throw
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 0 -Scope It
             }
 
-            It 'Parameter Filter is not blank returns Organization' {
+            It 'Parameter Filter returns 1 Organization' {
                 (Get-SL1Organization -Filter 'filter.0.name.contains=customerX').name | Should -be 'customerX'
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 2 -Scope It
             }
+
+            It 'Parameter Filter returns 2 Organizations' {
+                (Get-SL1Organization -Filter 'filter.0.name.contains=customer').Count | Should -be 2
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 2 -Scope It
+            }
+            
         }
     }
 }
