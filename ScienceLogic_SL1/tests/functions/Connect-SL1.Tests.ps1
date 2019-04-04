@@ -4,17 +4,17 @@ Import-Module "$PSScriptRoot\..\..\ScienceLogic_SL1.psd1"
 InModuleScope 'ScienceLogic_SL1' {
     Describe 'Connect-SL1' {
         BeforeAll {
-            $Uri = 'https://www.google.be'
-            $Cred = [pscredential]::new('user', (ConvertTo-SecureString -AsPlainText -Force -String 'pwd') )
-            $uri | Out-Null
-            $Cred | Out-Null
+            $Uri = 'https://www.someSL1url.com'
+            $BadCred = [pscredential]::new('Badcred', (ConvertTo-SecureString -AsPlainText -Force -String 'badpwd'))
+            $GoodCred = [pscredential]::new('goodcred', (ConvertTo-SecureString -AsPlainText -Force -String 'goodpwd') )
+            Mock Invoke-SL1Request {
+                return New-Object -TypeName psobject -Property @{StatusCode = [System.Net.HttpStatusCode]::OK}
+            }
         }
 
         Context 'Input Validation' {
             $MandatoryParams = @{param='Uri'},@{param='Credential'}
             $NonMandatoryParams = @{param='Passthru'}
-            $MandatoryParams | Out-Null
-            $NonMandatoryParams | Out-Null
             It "Parameter <param> is mandatory" -TestCases $MandatoryParams {
                 param($Param)
                 (Get-Command Connect-SL1).Parameters[$Param].Attributes.mandatory | Should -Be $True
@@ -25,31 +25,37 @@ InModuleScope 'ScienceLogic_SL1' {
                 (get-command Connect-SL1).Parameters[$Param].Attributes.mandatory | Should -BeFalse
             }
         }
-        Context 'Function Execution with Mandatory parameters' {
+
+        Context 'Testing with wrong credential' {
             BeforeAll {
                 Mock Invoke-SL1Request {
-                    return New-Object -TypeName psobject -Property @{StatusCode = 200}
+                    return New-Object -TypeName psobject -Property @{StatusCode = [System.Net.HttpStatusCode]::Unauthorized}
                 }
             }
+            It 'Should throw' {
+                { Connect-SL1 -Uri $uri -Credential $BadCred } | should -Throw
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 1 -Scope It
+            }
+        }
+
+        Context 'Function Execution with Mandatory parameters' {
             It 'Does not output anything' {
-                Connect-SL1 -Uri $uri -Credential $Cred | should -be $null
+                Connect-SL1 -Uri $uri -Credential $GoodCred | should -be $null
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 1 -Scope It
             }
 
             It "Calls Invoke-SL1Request 1 time" {
-                Assert-MockCalled -CommandName Invoke-SL1Request -Exactly 1
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 1
             }
         }
+
         Context 'Function Execution With Passthru parameter' {
-            BeforeAll {
-                Mock Invoke-SL1Request {
-                    return New-Object -TypeName psobject -Property @{StatusCode = 200}
-                }
-            }
             It 'Outputs the connection information with passthru' {
-                Connect-SL1 -Uri $uri -Credential $Cred -Passthru | Should -Not -Be $Null
+                Connect-SL1 -Uri $uri -Credential $GoodCred -Passthru | Should -Not -Be $Null
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 1 -Scope It # Choose this or the next
             }
             It "Calls Invoke-SL1Request 1 time" {
-                Assert-MockCalled -CommandName Invoke-SL1Request -Exactly 1
+                Assert-MockCalled -CommandName Invoke-SL1Request -Times 1 # choose this or the previous
             }
         }
     }

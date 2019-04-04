@@ -1,10 +1,12 @@
 ﻿Function Get-SL1Organization {
 	[CmdletBinding(DefaultParameterSetName='Filter')]
 	Param(
-		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='ID')]
+		[Parameter(Mandatory,Position=0, ValueFromPipeline, ParameterSetName='ID')]
+		[ValidateScript({$_ -ge 0})]
 		[int64]$Id,
 
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='Filter')]
+		[ValidateNotNullOrEmpty()]
 		[string]$Filter,
 
 		[Parameter(Position=1, ParameterSetName='Filter')]
