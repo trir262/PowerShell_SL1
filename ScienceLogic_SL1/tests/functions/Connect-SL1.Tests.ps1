@@ -51,7 +51,6 @@ InModuleScope 'ScienceLogic_SL1' {
             It "Calls Invoke-SL1Request 1 time" {
                 Assert-MockCalled -CommandName Invoke-SL1Request -Exactly 1
             }
-
-    }
+        }
     }
 }
