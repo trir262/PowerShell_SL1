@@ -31,6 +31,7 @@ $Entities = @{
 
     'device_templateID' = (Get-Content "$($PSScriptRoot)\json\device_templateID.json")
     'device_templateQuery' = (Get-Content "$($PSScriptRoot)\json\device_templateQuery.json")
+    'device_templateXtend' = (Get-Content "$($PSScriptRoot)\json\device_templateXtend.json")
 
     'DeviceID'= (Get-Content "$($PSScriptRoot)\json\deviceid.json")
     'DeviceQuery' = (Get-Content "$($PSScriptRoot)\json\DeviceQuery.json")
@@ -44,21 +45,22 @@ $Entities = @{
 
     'Organization2Query' = (Get-Content "$($PSScriptRoot)\json\organization2Query.json")
     'Organization2Xtend' = (Get-Content "$($PSScriptroot)\json\organization2xtend.json")
-
 }
 
 foreach ($EntityKey in $Entities.Keys) {
     try {
-        $Entities[$EntityKey] | ConvertFrom-Json | out-null
+        convertfrom-json $Entities[$EntityKey] | out-null
     } catch {
-        Write-Verbose $($EntityKey)
+        Write-Information $($EntityKey)
     }
 }
 
 $Entities
 <#
 cls
-$Entity = 'organization'
-(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=10&extended_fetch=1&filter.0._id.eq=1&hide_filterinfo=1" -Credential $Cred).Content
-#"'$($Entity)_Query' = '$(Invoke-RestMethod -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=2&filter._id.eq=492" -Credential $Cred | ConvertTo-Json -Compress)'"
+$Entity = 'device_template'
+(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)/1" -Credential $Cred).Content
+(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=1&filter._id.eq=1" -Credential $Cred).Content
+(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=1&filter._id.eq=1&extended_fetch=1&hide_filterinfo=1" -Credential $Cred).Content
+
 #>
