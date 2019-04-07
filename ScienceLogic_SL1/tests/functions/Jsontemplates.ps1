@@ -1,45 +1,50 @@
 $Entities = @{
-    'applianceID' = (Get-Content .\json\applianceID.json)
-    'applianceQuery' = (Get-Content .\json\applianceQuery.json)
+    'applianceID' = (Get-Content "$($PSScriptRoot)\json\applianceID.json")
+    'applianceQuery' = (Get-Content "$($PSScriptRoot)\json\applianceQuery.json")
 
-    'collector_groupID' = (Get-Content .\json\collector_groupID.json)
-    'collector_groupQuery' = (Get-Content .\json\collector_groupQuery.json)
+    'collector_groupID' = (Get-Content "$($PSScriptRoot)\json\collector_groupID.json")
+    'collector_groupQuery' = (Get-Content "$($PSScriptRoot)\json\collector_groupQuery.json")
 
-    'credential_basicID' = (Get-Content .\json\credential_basicID.json)
-    'credential_basicQuery' = (Get-Content .\json\credential_basicQuery.json)
+    'credential_basicID' = (Get-Content "$($PSScriptRoot)\json\credential_basicID.json")
+    'credential_basicQuery' = (Get-Content "$($PSScriptRoot)\json\credential_basicQuery.json")
 
-    'credential_dbID' = (Get-Content .\json\credential_dbID.json)
-    'credential_dbQuery' = (Get-Content .\json\credential_dbQuery.json)
+    'credential_dbID' = (Get-Content "$($PSScriptRoot)\json\credential_dbID.json")
+    'credential_dbQuery' = (Get-Content "$($PSScriptRoot)\json\credential_dbQuery.json")
 
-    'credential_ldapID' = (Get-Content .\json\credential_ldapID.json)
-    'credential_ldapQuery' = (Get-Content .\json\credential_ldapQuery.json)
+    'credential_ldapID' = (Get-Content "$($PSScriptRoot)\json\credential_ldapID.json")
+    'credential_ldapQuery' = (Get-Content "$($PSScriptRoot)\json\credential_ldapQuery.json")
 
-    'credential_powershellID' = (Get-Content .\json\credential_powershellID.json)
-    'credential_powershellQuery' = (Get-Content .\json\credential_powershellQuery.json)
+    'credential_powershellID' = (Get-Content "$($PSScriptRoot)\json\credential_powershellID.json")
+    'credential_powershellQuery' = (Get-Content "$($PSScriptRoot)\json\credential_powershellQuery.json")
 
-    'credential_snmpID' = (Get-Content .\json\credential_snmpID.json)
-    'credential_snmpQuery' = (Get-Content .\json\credential_snmpQuery.json)
+    'credential_snmpID' = (Get-Content "$($PSScriptRoot)\json\credential_snmpID.json")
+    'credential_snmpQuery' = (Get-Content "$($PSScriptRoot)\json\credential_snmpQuery.json")
 
-    'credential_soapID' = (Get-Content .\json\credential_soapID.json)
-    'credential_soapQuery' = (Get-Content .\json\credential_soapQuery.json)
+    'credential_soapID' = (Get-Content "$($PSScriptRoot)\json\credential_soapID.json")
+    'credential_soapQuery' = (Get-Content "$($PSScriptRoot)\json\credential_soapQuery.json")
 
-    'credential_sshID' = (Get-Content .\json\credential_sshID.json)
-    'credential_sshQuery' = (Get-Content .\json\credential_sshQuery.json)
+    'credential_sshID' = (Get-Content "$($PSScriptRoot)\json\credential_sshID.json")
+    'credential_sshQuery' = (Get-Content "$($PSScriptRoot)\json\credential_sshQuery.json")
 
-    'device_groupID' = (Get-Content .\json\device_groupID.json)
-    'device_groupQuery' = (Get-Content .\json\device_groupQuery.json)
+    'device_groupID' = (Get-Content "$($PSScriptRoot)\json\device_groupID.json")
+    'device_groupQuery' = (Get-Content "$($PSScriptRoot)\json\device_groupQuery.json")
 
-    'device_templateID' = (Get-Content .\json\device_templateID.json)
-    'device_templateQuery' = (Get-Content .\json\device_templateQuery.json)
+    'device_templateID' = (Get-Content "$($PSScriptRoot)\json\device_templateID.json")
+    'device_templateQuery' = (Get-Content "$($PSScriptRoot)\json\device_templateQuery.json")
 
-    'DeviceID'= (Get-Content .\JSON\deviceid.json)
-    'DeviceQuery' = (Get-Content .\json\DeviceQuery.json)
+    'DeviceID'= (Get-Content "$($PSScriptRoot)\json\deviceid.json")
+    'DeviceQuery' = (Get-Content "$($PSScriptRoot)\json\DeviceQuery.json")
 
-    'discovery_sessionID' = (Get-Content .\json\discovery_sessionID.json)
-    'discovery_sessionQuery' = (Get-Content .\json\discovery_sessionQuery.json)
+    'discovery_sessionID' = (Get-Content "$($PSScriptRoot)\json\discovery_sessionID.json")
+    'discovery_sessionQuery' = (Get-Content "$($PSScriptRoot)\json\discovery_sessionQuery.json")
 
-    'OrganizationID' = (Get-Content .\json\OrganizationID.json)
-    'organization_Query' = (Get-Content .\json\organizationQuery.json)
+    'Organization1ID' = (Get-Content "$($PSScriptRoot)\json\Organization1ID.json")
+    'Organization1Query' = (Get-Content "$($PSScriptRoot)\json\organization1Query.json")
+    'Organization1Xtend' = (Get-Content "$($PSScriptroot)\json\organization1xtend.json")
+
+    'Organization2Query' = (Get-Content "$($PSScriptRoot)\json\organization2Query.json")
+    'Organization2Xtend' = (Get-Content "$($PSScriptroot)\json\organization2xtend.json")
+
 }
 
 foreach ($EntityKey in $Entities.Keys) {
@@ -50,10 +55,10 @@ foreach ($EntityKey in $Entities.Keys) {
     }
 }
 
+$Entities
 <#
 cls
-$Entity = 'discovery_session'
-#"'$($Entity)_ID' = '$(Invoke-RestMethod -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)/492" -Credential $Cred | ConvertTo-Json -Compress)'"
+$Entity = 'organization'
+(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=10&extended_fetch=1&filter.0._id.eq=1&hide_filterinfo=1" -Credential $Cred).Content
 #"'$($Entity)_Query' = '$(Invoke-RestMethod -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=2&filter._id.eq=492" -Credential $Cred | ConvertTo-Json -Compress)'"
-
 #>

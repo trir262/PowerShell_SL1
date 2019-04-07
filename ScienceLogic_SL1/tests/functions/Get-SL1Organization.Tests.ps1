@@ -1,10 +1,11 @@
 Write-PSFMessage -Level Critical -Message "Reimporting ScienceLogic_SL1 module"
 Remove-Module ScienceLogic_SL1 -ErrorAction Ignore
 Import-Module "$PSScriptRoot\..\..\ScienceLogic_SL1.psd1"
+$global:JSONs = . "$PSScriptRoot\JsonTemplates.ps1"
 InModuleScope 'ScienceLogic_SL1' {
     Describe 'Get-SL1Organization' {
         BeforeAll {
-            $Uri = 'https://www.someSL1url.com'
+            $Url = 'https://www.someSL1url.com'
             $BadCred = [pscredential]::new('Badcred', (ConvertTo-SecureString -AsPlainText -Force -String 'badpwd'))
             $GoodCred = [pscredential]::new('goodcred', (ConvertTo-SecureString -AsPlainText -Force -String 'goodpwd') )
             # Mock Connect-SL1
@@ -18,7 +19,7 @@ InModuleScope 'ScienceLogic_SL1' {
             Mock Invoke-SL1Request { 
                 return New-Object -TypeName psobject -Property @{ 
                     StatusCode = [System.Net.HttpStatusCode]::OK
-                    Content = '{"some":"else"}' 
+                    Content = $global:JSONs['Organization1ID']
                 } 
             } -ParameterFilter { $Uri -and $Uri -match '/api/organization/\d+$' }
             
@@ -26,30 +27,35 @@ InModuleScope 'ScienceLogic_SL1' {
             Mock Invoke-SL1Request { 
                 return New-Object -TypeName psobject -Property @{ 
                     StatusCode = [System.Net.HttpStatusCode]::OK
-                    Content = '{"total_matched":"1"}' 
+                    Content = ($global:JSONs['Organization1Query'])
                 }
-            } -ParameterFilter { $Uri -and $Uri -match '/api/organization\?'}
+            } -ParameterFilter { $Uri -and $Uri -eq "$($url)/api/organization?filter.0.name.contains=customer%20X&limit=100"}
 
             #Mock for /api/organization? contains=customerX&extended_fetch=1
             Mock Invoke-SL1Request { 
                 return New-Object -TypeName psobject -Property @{ 
                     StatusCode = [System.Net.HttpStatusCode]::OK
-                    Content = (ConvertTo-Json @{'/api/organization/1'=[pscustomobject]@{name='customerX'}}) 
-                } 
-            } -ParameterFilter { $Uri -and $Uri -match '/api/organization\?.+contains=customerX&?.+?\&extended_fetch=1'}
+                    Content = $global:JSONs['Organization1Xtend']
+                } # /api/organization?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1
+            } -ParameterFilter { $Uri -and $Uri -eq "$($Url)/api/organization?filter.0.name.contains=customer%20X&limit=100&hide_filterinfo=1&extended_fetch=1"}
 
-            #Mock for /api/organization? contains=customer&extended_fetch=1
+            #Mock for /api/organization?limit for two organizations
             Mock Invoke-SL1Request { 
                 return New-Object -TypeName psobject -Property @{ 
                     StatusCode = [System.Net.HttpStatusCode]::OK
-                    Content = (
-                        @{'/api/organization/1'=[pscustomobject]@{name='customerX'}
-                        '/api/organization/2'=[pscustomobject]@{name='customerY'} } | ConvertTo-Json
-                    ) 
-                } 
-            } -ParameterFilter { $Uri -and $Uri -match '/api/organization\?.+contains=customer&.+?\&extended_fetch=1'}
+                    Content = $global:JSONs['Organization2Query']
+                }
+            } -ParameterFilter { $Uri -and $Uri -eq "$($url)/api/organization?filter.0.name.contains=customer&limit=100"}
 
-            Connect-SL1 -Uri $Uri -Credential $GoodCred
+            #Mock for /api/organization? contains=customerX&extended_fetch=1 for two organizations
+            Mock Invoke-SL1Request { 
+                return New-Object -TypeName psobject -Property @{ 
+                    StatusCode = [System.Net.HttpStatusCode]::OK
+                    Content = $global:JSONs['Organization2Xtend']
+                } # /api/organization?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1
+            } -ParameterFilter { $Uri -and $Uri -eq "$($Url)/api/organization?filter.0.name.contains=customer&limit=100&hide_filterinfo=1&extended_fetch=1"}
+
+            Connect-SL1 -Uri $Url -Credential $GoodCred
             $Cmd = 'Get-SL1Organization'
         }
 
@@ -86,7 +92,7 @@ InModuleScope 'ScienceLogic_SL1' {
             }
 
             It 'Parameter Filter returns 1 Organization' {
-                (Get-SL1Organization -Filter 'filter.0.name.contains=customerX').name | Should -be 'customerX'
+                (Get-SL1Organization -Filter 'filter.0.name.contains=customer%20X').Company | Should -be 'customer X'
                 Assert-MockCalled -CommandName Invoke-SL1Request -Times 2 -Scope It
             }
 
