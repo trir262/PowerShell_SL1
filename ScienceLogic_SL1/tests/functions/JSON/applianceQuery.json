@@ -1,0 +1,43 @@
+{
+    "searchspec": {
+        "fields": [
+            "_id",
+            "capacity",
+            "date_create",
+            "date_edit",
+            "db_pass",
+            "db_ssl",
+            "db_user",
+            "descr",
+            "expiration",
+            "ha_status",
+            "ip",
+            "lic_status",
+            "lic_type",
+            "name",
+            "organization",
+            "patch_level",
+            "release_version",
+            "status",
+            "status_time",
+            "type",
+            "user_edit",
+            "version_id"
+        ],
+        "options": {
+            "hide_filterinfo": "@{type=boolean; description=Suppress filterspec and current filter info if 1 (true); default=0}",
+            "limit": "@{type=int; description=Number of records to retrieve; default=100}",
+            "offset": "@{type=int; description=Specifies the index of the first returned resource within the entire result set; default=0}",
+            "extended_fetch": "@{type=boolean; description=Fetch entire resource if 1 (true), or resource link only if 0 (false); default=0}",
+            "link_disp_field": "@{type=enum; description=When not using extended_fetch, this determines which field is used for the \"description\" of the resource link; default=name; values=System.Object[]}"
+        }
+    },
+    "total_matched": 1,
+    "total_returned": 1,
+    "result_set": [
+        {
+            "URI": "/api/appliance/1",
+            "description": "CDB"
+        }
+    ]
+}

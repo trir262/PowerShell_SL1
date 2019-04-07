@@ -1,4 +1,4 @@
-﻿task . InstallDependencies, Clean , Analyze, Analyze_pester, Archive , Publish, UpdateVersion
+﻿task . InstallDependencies, Clean, Analyze, Analyze_pester, Archive #, Publish, UpdateVersion
 
 task InstallDependencies {
     Install-Module Pester -Force
@@ -6,7 +6,7 @@ task InstallDependencies {
 }
 
 task Analyze_pester {
-    . .\tests\pester.ps1 -TestGeneral:$True
+    . .\pester_build.ps1 -TestGeneral:$False
 }
 task Analyze {
 #    write-host $BuildRoot

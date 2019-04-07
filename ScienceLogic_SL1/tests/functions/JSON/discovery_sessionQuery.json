@@ -1,0 +1,45 @@
+{
+    "searchspec": {
+        "fields": [
+            "_id",
+            "aligned_collector",
+            "aligned_device_template",
+            "bypass_interface_inventory",
+            "date_edit",
+            "date_run",
+            "description",
+            "dhcp_enabled",
+            "discover_non_snmp",
+            "duplicate_protection",
+            "edited_by",
+            "initial_scan_level",
+            "interface_inventory_timeout",
+            "log_all",
+            "max_interface_inventory_count",
+            "model_device",
+            "model_override",
+            "name",
+            "organization",
+            "port_scan_timeout",
+            "pre_device_ttl",
+            "scan_all_ips",
+            "scan_ports",
+            "scan_throttle"
+        ],
+        "options": {
+            "hide_filterinfo": "@{type=boolean; description=Suppress filterspec and current filter info if 1 (true); default=0}",
+            "limit": "@{type=int; description=Number of records to retrieve; default=100}",
+            "offset": "@{type=int; description=Specifies the index of the first returned resource within the entire result set; default=0}",
+            "extended_fetch": "@{type=boolean; description=Fetch entire resource if 1 (true), or resource link only if 0 (false); default=0}",
+            "link_disp_field": "@{type=enum; description=When not using extended_fetch, this determines which field is used for the \"description\" of the resource link; default=main.name; values=System.Object[]}"
+        }
+    },
+    "total_matched": 1,
+    "total_returned": 1,
+    "result_set": [
+        {
+            "URI": "/api/discovery_session/492",
+            "description": "discovery"
+        }
+    ]
+}

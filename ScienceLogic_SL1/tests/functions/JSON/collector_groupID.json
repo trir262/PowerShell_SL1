@@ -1,0 +1,17 @@
+{
+    "cug_name": "colgroup",
+    "edit_user": "/api/account/38",
+    "edit_date": "1550671336",
+    "failure_mode": "0",
+    "failure_max": "1",
+    "failure_alert": "1",
+    "failover_wait": 0,
+    "failback_wait": 0,
+    "failback_mode": "0",
+    "data_collectors": [
+        "/api/appliance/2",
+        "/api/appliance/10"
+    ],
+    "msg_collectors": [],
+    "used_capacity": "2031"
+}
