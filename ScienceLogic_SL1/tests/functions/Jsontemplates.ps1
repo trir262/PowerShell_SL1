@@ -1,30 +1,39 @@
 $Entities = @{
     'applianceID' = (Get-Content "$($PSScriptRoot)\json\applianceID.json")
     'applianceQuery' = (Get-Content "$($PSScriptRoot)\json\applianceQuery.json")
+    'appliancextend' = (get-content "$($PSScriptRoot)\json\appliancextend.json")
 
     'collector_groupID' = (Get-Content "$($PSScriptRoot)\json\collector_groupID.json")
     'collector_groupQuery' = (Get-Content "$($PSScriptRoot)\json\collector_groupQuery.json")
+    'collector_groupxtend' = (Get-Content "$($PSScriptRoot)\json\collector_groupxtend.json")
 
     'credential_basicID' = (Get-Content "$($PSScriptRoot)\json\credential_basicID.json")
     'credential_basicQuery' = (Get-Content "$($PSScriptRoot)\json\credential_basicQuery.json")
+    'credential_basicxtend' = (Get-Content "$($PSScriptRoot)\json\credential_basicxtend.json")
 
     'credential_dbID' = (Get-Content "$($PSScriptRoot)\json\credential_dbID.json")
     'credential_dbQuery' = (Get-Content "$($PSScriptRoot)\json\credential_dbQuery.json")
+    'credential_dbxtend' = (Get-Content "$($PSScriptRoot)\json\credential_dbxtend.json")
 
     'credential_ldapID' = (Get-Content "$($PSScriptRoot)\json\credential_ldapID.json")
     'credential_ldapQuery' = (Get-Content "$($PSScriptRoot)\json\credential_ldapQuery.json")
+    'credential_ldapxtend' = (Get-Content "$($PSScriptRoot)\json\credential_ldapxtend.json")
 
     'credential_powershellID' = (Get-Content "$($PSScriptRoot)\json\credential_powershellID.json")
     'credential_powershellQuery' = (Get-Content "$($PSScriptRoot)\json\credential_powershellQuery.json")
+    'credential_powershellxtend' = (Get-Content "$($PSScriptRoot)\json\credential_powershellxtend.json")
 
     'credential_snmpID' = (Get-Content "$($PSScriptRoot)\json\credential_snmpID.json")
     'credential_snmpQuery' = (Get-Content "$($PSScriptRoot)\json\credential_snmpQuery.json")
+    'credential_snmpxtend' = (Get-Content "$($PSScriptRoot)\json\credential_snmpxtend.json")
 
     'credential_soapID' = (Get-Content "$($PSScriptRoot)\json\credential_soapID.json")
     'credential_soapQuery' = (Get-Content "$($PSScriptRoot)\json\credential_soapQuery.json")
+    'credential_soapxtend' = (Get-Content "$($PSScriptRoot)\json\credential_soapxtend.json")
 
     'credential_sshID' = (Get-Content "$($PSScriptRoot)\json\credential_sshID.json")
     'credential_sshQuery' = (Get-Content "$($PSScriptRoot)\json\credential_sshQuery.json")
+    'credential_sshxtend' = (Get-Content "$($PSScriptRoot)\json\credential_sshxtend.json")
 
     'device_groupID' = (Get-Content "$($PSScriptRoot)\json\device_groupID.json")
     'device_groupQuery' = (Get-Content "$($PSScriptRoot)\json\device_groupQuery.json")
@@ -58,9 +67,10 @@ foreach ($EntityKey in $Entities.Keys) {
 $Entities
 <#
 cls
-$Entity = 'device_template'
+$Entity = 'credential'
+$Cred = [pscredential]::new('em7admin' , (convertto-securestring -asplaintext -force -string 'tyus68dcv'))
 (Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)/1" -Credential $Cred).Content
 (Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=1&filter._id.eq=1" -Credential $Cred).Content
-(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=1&filter._id.eq=1&extended_fetch=1&hide_filterinfo=1" -Credential $Cred).Content
+(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)/ssh?limit=1&filter._id.eq=229&extended_fetch=1&hide_filterinfo=1" -Credential $Cred).Content
 
 #>

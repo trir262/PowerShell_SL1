@@ -2,6 +2,7 @@
 	[CmdletBinding(DefaultParameterSetName='Filter')]
 	Param(
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='ID')]
+		[ValidateScript({$_ -gt 0})]
 		[int64]$Id,
 
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='Filter')]
