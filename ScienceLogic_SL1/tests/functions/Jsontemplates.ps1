@@ -44,6 +44,7 @@ $Entities = @{
 
     'DeviceID'= (Get-Content "$($PSScriptRoot)\json\deviceid.json")
     'DeviceQuery' = (Get-Content "$($PSScriptRoot)\json\DeviceQuery.json")
+    'DeviceXtend' = (Get-Content "$($PSScriptRoot)\json\DeviceXtend.json")
 
     'discovery_sessionID' = (Get-Content "$($PSScriptRoot)\json\discovery_sessionID.json")
     'discovery_sessionQuery' = (Get-Content "$($PSScriptRoot)\json\discovery_sessionQuery.json")
@@ -67,10 +68,10 @@ foreach ($EntityKey in $Entities.Keys) {
 $Entities
 <#
 cls
-$Entity = 'credential'
+$Entity = 'device'
 $Cred = [pscredential]::new('em7admin' , (convertto-securestring -asplaintext -force -string 'tyus68dcv'))
 (Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)/1" -Credential $Cred).Content
 (Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=1&filter._id.eq=1" -Credential $Cred).Content
-(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)/ssh?limit=1&filter._id.eq=229&extended_fetch=1&hide_filterinfo=1" -Credential $Cred).Content
+(Invoke-WebRequest -Method Get -Uri "https://monitoring.realdolmencloud.com/api/$($Entity)?limit=1&filter._id.eq=2&extended_fetch=1&hide_filterinfo=1" -Credential $Cred).Content
 
 #>

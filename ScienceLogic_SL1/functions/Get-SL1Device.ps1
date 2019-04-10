@@ -2,6 +2,7 @@
 	[CmdletBinding(DefaultParameterSetName='Filter')]
 	Param(
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='ID')]
+		[ValidateScript({$_ -gt 0})]
 		[int64]$Id,
 
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='Filter')]
@@ -26,7 +27,8 @@
 				switch ($SL1Device.StatusCode) {
 					{ $_ -eq [system.net.httpstatuscode]::OK } {
 						$Device = ConvertFrom-Json $SL1Device.content
-						ConvertTo-Device -SL1Device $Device -ID $Id -CompanyName (Get-SL1Organization -id (($Device.organization -split '/')[-1])).Company
+						$SL1Organization = (Get-SL1Organization -id (($Device.organization -split '/')[-1]))
+						ConvertTo-Device -SL1Device $Device -ID $Id -CompanyName $SL1Organization.Company
 					}
 					{ $_ -eq [system.net.httpstatuscode]::Forbidden } { throw "You are not authorized to get information on device with id $($Id)"}
 					{ $_ -eq [System.Net.HttpStatusCode]::NotFound } { throw "Device with id $($Id) is not found in the SL1 system" }
