@@ -7,6 +7,7 @@
 		[string]$Type,
 
 		[Parameter(Position=1, ValueFromPipeline, ParameterSetName='ID')]
+		[ValidateScript({$_ -gt 0})]
 		[int64]$Id,
 
 		[Parameter(Position=1, ValueFromPipeline, ParameterSetName='Filter')]
@@ -63,7 +64,8 @@
 						if ($Json.total_matched -eq 0) {
 							throw "No credential found with filter '$($Filter)'"
 						} else {
-							$Credentials = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/credential/$($Type)?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
+							$Content = (Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/credential/$($Type)?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content
+							$Credentials = ConvertFrom-Json $Content
 							foreach ($CredentialURI in (($Credentials | Get-Member -MemberType NoteProperty).name) ) {
 								ConvertTo-Credential -SL1Credential $Credentials.$CredentialURI -ID "$( ($CredentialURI -split '/')[-1])" -Type $Type
 							}
