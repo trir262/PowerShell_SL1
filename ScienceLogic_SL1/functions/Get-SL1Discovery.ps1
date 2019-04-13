@@ -2,6 +2,7 @@
 	[CmdletBinding(DefaultParameterSetName='Filter')]
 	Param(
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='ID')]
+		[ValidateScript({$_ -gt 0})]
 		[int64]$Id,
 
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='Filter')]
@@ -46,7 +47,7 @@
 						} else {
 							$Discovery = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/discovery_session?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
 							foreach ($DiscoveryURI in (($Discovery | Get-Member -MemberType NoteProperty).name) ) {
-								ConvertTo-Discovery -SL1Discovery $Devices.$DeviceURI -ID "$( ($DeviceURI -split '/')[-1])"
+								ConvertTo-Discovery -SL1Discovery ($Discovery.$DiscoveryURI) -ID "$( ($DeviceURI -split '/')[-1])"
 							}
 						}
 					}

@@ -2,6 +2,7 @@
 	[CmdletBinding(DefaultParameterSetName='Filter')]
 	Param(
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='ID')]
+		[ValidateScript({$_ -gt 0})]
 		[int64]$Id,
 
 		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='Filter')]
@@ -48,7 +49,8 @@
 						if ($Json.total_matched -eq 0) {
 							throw "No device group found with filter '$($Filter)'"
 						} else {
-							$DeviceGroups = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/device_group?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
+							$DGroup = (Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/device_group?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1")
+							$DeviceGroups = ConvertFrom-Json ($dgroup.Content)
 							foreach ($DeviceGroupURI in (($DeviceGroups | Get-Member -MemberType NoteProperty).name) ) {
 								ConvertTo-DeviceGroup -SL1DeviceGroup $DeviceGroups.$DeviceGroupURI -ID "$( ($DeviceGroupURI -split '/')[-1])"
 							}

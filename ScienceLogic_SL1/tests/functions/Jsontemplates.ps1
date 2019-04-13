@@ -37,6 +37,7 @@ $Entities = @{
 
     'device_groupID' = (Get-Content "$($PSScriptRoot)\json\device_groupID.json")
     'device_groupQuery' = (Get-Content "$($PSScriptRoot)\json\device_groupQuery.json")
+    'device_groupxtend' = (Get-Content "$($PSScriptRoot)\json\device_groupxtend.json")
 
     'device_templateID' = (Get-Content "$($PSScriptRoot)\json\device_templateID.json")
     'device_templateQuery' = (Get-Content "$($PSScriptRoot)\json\device_templateQuery.json")
@@ -48,6 +49,7 @@ $Entities = @{
 
     'discovery_sessionID' = (Get-Content "$($PSScriptRoot)\json\discovery_sessionID.json")
     'discovery_sessionQuery' = (Get-Content "$($PSScriptRoot)\json\discovery_sessionQuery.json")
+    'discovery_sessionxtend' = (Get-Content "$($PSScriptRoot)\json\discovery_sessionXtend.json")
 
     'Organization1ID' = (Get-Content "$($PSScriptRoot)\json\Organization1ID.json")
     'Organization1Query' = (Get-Content "$($PSScriptRoot)\json\organization1Query.json")
