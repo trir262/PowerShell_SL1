@@ -61,7 +61,7 @@
 					if ($body) {
 						$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Cred -ContentType $ContentType -Body $Body -ErrorAction Stop -Verbose:$false
 						switch ($IWRResponse.StatusCode) {
-							{ $_ -eq [System.Net.HttpStatusCode]::OK-or $_ -eq [System.Net.HttpStatusCode]::Created -or $_ -eq [System.Net.HttpStatusCode]::Accepted } { $IWRResponse }
+							{ $_ -eq [System.Net.HttpStatusCode]::OK -or $_ -eq [System.Net.HttpStatusCode]::Created -or $_ -eq [System.Net.HttpStatusCode]::Accepted } { $IWRResponse }
 							{ $_ -eq [System.Net.HttpStatusCode]::Redirect} { Invoke-SL1Request -Method $Method -Uri "$($Script:SL1Defaults.APIRoot)$($IWRResponse.Headers['Location'])" }
 						}
 					}

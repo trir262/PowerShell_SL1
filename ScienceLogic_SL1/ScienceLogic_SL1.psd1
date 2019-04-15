@@ -40,12 +40,13 @@
 	
 	# Functions to export from this module
 	FunctionsToExport = @(
+		'Add-SL1Alert',
         'Connect-SL1',
         'Get-SL1Appliance', 
         'Get-SL1CollectorGroup', 'Get-SL1Credential',
         'Get-SL1Device', 'Get-SL1DeviceGroup', 'Get-SL1Discovery'
         'Get-SL1Organization',
-        'Get-SL1Template' 
+        'Get-SL1Template'
 )
 	
 	# Cmdlets to export from this module

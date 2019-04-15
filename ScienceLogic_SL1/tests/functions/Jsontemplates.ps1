@@ -57,6 +57,9 @@ $Entities = @{
 
     'Organization2Query' = (Get-Content "$($PSScriptRoot)\json\organization2Query.json")
     'Organization2Xtend' = (Get-Content "$($PSScriptroot)\json\organization2xtend.json")
+
+    'AlertRequestwithdevice' = (Get-Content "$($PSScriptroot)\json\alertrequestwithdevice.json")
+    'AlertResponsewithdevice' = (Get-Content "$($PSScriptroot)\json\alertresponsewithdevice.json")
 }
 
 foreach ($EntityKey in $Entities.Keys) {
