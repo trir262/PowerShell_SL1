@@ -1,4 +1,4 @@
-﻿Function Test-SL1Connected {
+﻿Function Assert-SL1Connected {
 <#
 	.Synopsis
 		Tests connectivity to ScienceLogic SL1

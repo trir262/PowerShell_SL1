@@ -15,7 +15,7 @@
 	)
 
 	Begin {
-		Test-SL1Connected
+		Assert-SL1Connected
 		if ($PSCmdlet.ParameterSetName -eq 'Filter' -and $Limit -eq 0) {
 			$Limit = $Script:SL1Defaults.DefaultLimit
 		}

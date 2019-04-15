@@ -14,7 +14,7 @@
 	)
 
 	Begin {
-		Test-SL1Connected
+		Assert-SL1Connected
 		if ($Limit -eq 0) {
 			$Limit = $Script:SL1Defaults.DefaultLimit
 		}

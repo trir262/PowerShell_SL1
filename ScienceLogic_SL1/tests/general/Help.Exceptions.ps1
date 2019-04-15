@@ -8,7 +8,7 @@ $global:FunctionHelpTestExceptions = @(
   'Get-SL1Template' ,
   #internals
   'ConvertTo-Appliance', 'ConvertTo-CollectorGroup' , 'ConvertTo-Credential' , 'ConvertTo-Device' , 'ConvertTo-DeviceGroup' , 'ConvertTo-Discovery',
-  'ConvertTo-Organization' , 'ConvertTo-Template' , 'Get-OrganizationForDevice', 'Invoke-SL1Request' , 'Test-SL1Connected'
+  'ConvertTo-Organization' , 'ConvertTo-Template' , 'Get-OrganizationForDevice', 'Invoke-SL1Request' , 'Assert-SL1Connected'
 
 )
 
