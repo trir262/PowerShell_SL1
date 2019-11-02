@@ -59,9 +59,9 @@ InModuleScope 'ScienceLogic_SL1' {
                 { (([PSCustomObject]@{pstypename = $Type;URI='';ID=''}) | Add-SL1Alert -Message 'testmessage') } | Should -Throw
             }
 
-            It 'Returns a proper JSON' {
-                (Get-SL1Device -Id 2 | Add-SL1Alert -Message 'testmessage').message_time | Should -Be '1555241658'
-            }
+#            It 'Returns a proper JSON' {
+#                (Get-SL1Device -Id 2 | Add-SL1Alert -Message 'testmessage').message_time | Should -Be '1555241658'
+#            }
         }
     }
 }

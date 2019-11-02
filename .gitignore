@@ -22,7 +22,9 @@ TestResults/*
 publish/*
 
 #ignore the private data
-PrivateData/*
+PrivateData
+#contains the powershellgallery api key
+PrivateData/APIKey.txt 
 
 #Ignore Artifact directory
 ScienceLogic_SL1/Artifacts

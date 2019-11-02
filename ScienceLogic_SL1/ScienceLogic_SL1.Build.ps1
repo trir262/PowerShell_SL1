@@ -1,7 +1,8 @@
 ﻿task . InstallDependencies, Clean, Analyze, Analyze_pester, Archive #, Publish, UpdateVersion
 
 task InstallDependencies {
-    Install-Module Pester -Force
+    Install-Module PSFramework -Force
+    Install-Module Pester -Force -SkipPublisherCheck
     Install-Module PSScriptAnalyzer -Force
 }
 
