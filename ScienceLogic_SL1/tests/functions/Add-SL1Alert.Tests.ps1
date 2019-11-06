@@ -21,14 +21,23 @@ InModuleScope 'ScienceLogic_SL1' {
             Mock Invoke-SL1Request {
                 return New-Object -TypeName psobject -Property @{
                     StatusCode= [System.Net.HttpStatusCode]::Created
-                    Content = ($global:jsons['alertresponsewithdevice'])
+                    Content = ($global:jsons['AlertResponsewithdevice'])
                 }
-            } -ParameterFilter { $uri -eq "$($URL)/api/alert" -and $Body -eq ($global:jsons['alertrequestwithdevice'])}
+            } -ParameterFilter { $uri -eq "$($URL)/api/alert" -and $method -eq "Post" }
+
+            #Mock Invoke-SL1Request with POST and device 2
+            Mock Invoke-SL1Request {
+                return New-Object -TypeName psobject -Property @{
+                    StatusCode= [System.Net.HttpStatusCode]::Created
+                    Content = ($global:jsons['AlertResponsewithdevice'])
+                }
+            } -ParameterFilter { $uri -eq "$($URL)/api/alert" -and $method -eq "Post" -and $body -match '/api/device/2'}
+
             Mock Get-SL1Device {
                 return [pscustomobject]@{pstypename='device';uri='/api/device/2';id='2'}
             }
-            $GoodTypes = @{Type='device'},@{Type='organization'}
-            $BadTypes = @{Type='device_group'},@{Type='device_template'}
+            $GoodTypes = @{Type='device'}
+            $BadTypes = @{Type='device_group'},@{Type='device_template'},@{Type='organization'}
         }
         
         Context 'Input Validation' {
@@ -51,17 +60,17 @@ InModuleScope 'ScienceLogic_SL1' {
         Context 'Function working' {
             It 'Type "<Type>" works ok' -TestCases $GoodTypes {
                 param ($Type)
-                { (([PSCustomObject]@{pstypename = $Type;URI='';ID=''}) | Add-SL1Alert -message "testmessage" ) } | should -Not -Throw
+                { (([PSCustomObject]@{pstypename = $Type;URI='';ID=''}) | Add-SL1Alert -message "Testmessage" ) } | should -Not -Throw
             }
 
             It 'Type "<Type>" results in an error' -TestCases $BadTypes {
                 param ($Type)
-                { (([PSCustomObject]@{pstypename = $Type;URI='';ID=''}) | Add-SL1Alert -Message 'testmessage') } | Should -Throw
+                { (([PSCustomObject]@{pstypename = $Type;URI='';ID=''}) | Add-SL1Alert -Message 'Testmessage') } | Should -Throw
             }
 
-#            It 'Returns a proper JSON' {
-#                (Get-SL1Device -Id 2 | Add-SL1Alert -Message 'testmessage').message_time | Should -Be '1555241658'
-#            }
+            It 'Returns a proper JSON' {
+                (Get-SL1Device -Id 2 | Add-SL1Alert -Message 'Testmessage').message_time | Should -Be '1555241658'
+            }
         }
     }
 }
