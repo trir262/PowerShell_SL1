@@ -8,13 +8,13 @@
     Process {
         switch ($WebError.Status) {
             ([System.Net.WebExceptionStatus]::ProtocolError) {
-            Write-Verbose "Web exception $($WebError.Response) occurred during the post: $($WebError.Response.Headers['X-EM7-status-message'])"
-            switch ($WebError.Response.StatusCode) {
-                    ([System.Net.HttpStatusCode]::Unauthorized) { $_.Exception.Response }
-                    ([System.Net.HttpStatusCode]::NotFound) { $_.Exception.Response }
-                    ([system.net.httpstatuscode]::Forbidden) { $_.Exception.Response }
+            Write-Verbose "Web exception ""$($WebError.Response.Statusdescription)"" occurred during the post: $($WebError.Response.Headers['X-EM7-status-message'])"
+            switch ([System.Net.HttpStatusCode]($WebError.Response.StatusCode)) {
+                    ([System.Net.HttpStatusCode]::Unauthorized) { $WebError.Response }
+                    ([System.Net.HttpStatusCode]::NotFound) { $WebError.Response }
+                    ([system.net.httpstatuscode]::Forbidden) { $WebError.Response }
                     ([System.Net.HttpStatusCode]::BadRequest) { throw $WebError }
-                    ([System.Net.HttpStatusCode]::NotImplemented) { $_.Exception.Response }
+                    ([System.Net.HttpStatusCode]::NotImplemented) { $WebError.Response }
                     default { $_ }
                 }
             }
