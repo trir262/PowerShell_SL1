@@ -3,7 +3,7 @@
 	RootModule = 'ScienceLogic_SL1.psm1'
 	
 	# Version number of this module.
-	ModuleVersion = '0.1.8'
+	ModuleVersion = '0.1.9'
 	
 	# ID used to uniquely identify this module
 	GUID = 'be9aa474-0ee2-475a-a9c3-0d16220ed6c1'
@@ -92,6 +92,7 @@
 		
 	} # End of PrivateData hashtable
 }
+
 
 
 

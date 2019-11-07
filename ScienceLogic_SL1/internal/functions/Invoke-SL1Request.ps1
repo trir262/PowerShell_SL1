@@ -39,9 +39,9 @@
 				Write-Verbose "In Get Mode"
 				try {
 					$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Cred -ContentType $ContentType -ErrorAction SilentlyContinue -Verbose:$false
-					switch ($IWRResponse.StatusCode) {
-						{ $_ -eq [System.Net.HttpStatusCode]::OK } { $IWRResponse }
-						{ $_ -eq [System.Net.HttpStatusCode]::Redirect} { Invoke-SL1Request -Method $Method -Uri "$($Script:SL1Defaults.APIRoot)$($IWRResponse.Headers['Location'])" }
+					switch ([System.Net.HttpStatusCode]($IWRResponse.StatusCode)) {
+						( [System.Net.HttpStatusCode]::OK ) { $IWRResponse }
+						( [System.Net.HttpStatusCode]::Redirect ) { Invoke-SL1Request -Method $Method -Uri "$($Script:SL1Defaults.APIRoot)$($IWRResponse.Headers['Location'])" }
 					}
 				} Catch [System.Net.WebException] {
 					Out-WebError -WebError $_.Exception
@@ -54,9 +54,11 @@
 				try {
 					if ($body) {
 						$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Cred -ContentType $ContentType -Body $Body -ErrorAction Stop -errorvariable IWRError -Verbose:$false
-						switch ($IWRResponse.StatusCode) {
-							{ $_ -eq [System.Net.HttpStatusCode]::OK -or $_ -eq [System.Net.HttpStatusCode]::Created -or $_ -eq [System.Net.HttpStatusCode]::Accepted } { $IWRResponse }
-							{ $_ -eq [System.Net.HttpStatusCode]::Redirect} { Invoke-SL1Request -Method $Method -Uri "$($Script:SL1Defaults.APIRoot)$($IWRResponse.Headers['Location'])" }
+						switch ([System.Net.HttpStatusCode]($IWRResponse.StatusCode)) {
+							( [System.Net.HttpStatusCode]::OK )       { $IWRResponse }
+							( [System.Net.HttpStatusCode]::Created )  { $IWRResponse }
+							( [System.Net.HttpStatusCode]::Accepted ) { $IWRResponse }
+							( [System.Net.HttpStatusCode]::Redirect ) { Invoke-SL1Request -Method $Method -Uri "$($Script:SL1Defaults.APIRoot)$($IWRResponse.Headers['Location'])" }
 						}
 					}
 				} Catch [System.Net.WebException] {
@@ -64,6 +66,14 @@
 				} Catch [System.Exception] {
 					throw $_
 				}
+			}
+			"Delete" {
+				Write-Verbose "In Delete Mode"
+				throw "Not yet implemented"
+			}
+			"Put" {
+				Write-Verbose "In Put Mode"
+				throw "Not yet implemented"
 			}
 		}
 	}

@@ -18,7 +18,7 @@
                     default { $_ }
                 }
             }
-            default {throw "you did do something wrong: $($WebError.Status)"}
+            default {throw "The internet messed with your mind, we got an $($WebError.Status) Error"}
         }
     }
 }
