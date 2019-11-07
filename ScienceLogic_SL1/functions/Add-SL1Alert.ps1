@@ -1,6 +1,7 @@
 ﻿Function Add-SL1Alert {
+  [OutputType([System.Management.Automation.psobject[]])]
   [CmdletBinding()]
-  Param (
+    Param (
       [Parameter(Mandatory,Position=0)]
       [string]
       $Message,

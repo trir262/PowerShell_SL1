@@ -1,4 +1,4 @@
-function ConvertTo-Alert {
+﻿function ConvertTo-Alert {
 	[CmdletBinding()]
 	Param(
 		[Parameter(Mandatory, Position=0, ValueFromPipeline)]

@@ -1,4 +1,4 @@
-Function Out-WebError {
+﻿Function Out-WebError {
     [CmdletBinding()]
     param (
         [Parameter()]
