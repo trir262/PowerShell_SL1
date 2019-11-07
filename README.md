@@ -1,6 +1,7 @@
 # PowerShell_SL1
 PowerShell wrapper for ScienceLogic SL1 REST API.
 SL1 is the new name of ScienceLogic's EM7. the API has been rewritten and enhanced.
+test
 
 ## Usage
 
