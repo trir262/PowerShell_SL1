@@ -6,9 +6,11 @@ $global:FunctionHelpTestExceptions = @(
   'Get-SL1Device', 'Get-SL1DeviceGroup', 'Get-SL1Discovery'
   'Get-SL1Organization',
   'Get-SL1Template' ,
+  'Add-SL1Alert'
   #internals
   'ConvertTo-Appliance', 'ConvertTo-CollectorGroup' , 'ConvertTo-Credential' , 'ConvertTo-Device' , 'ConvertTo-DeviceGroup' , 'ConvertTo-Discovery',
-  'ConvertTo-Organization' , 'ConvertTo-Template' , 'Get-OrganizationForDevice', 'Invoke-SL1Request' , 'Assert-SL1Connected'
+  'ConvertTo-Organization' , 'ConvertTo-Template' , 'Get-OrganizationForDevice', 'Invoke-SL1Request' , 'Assert-SL1Connected', 'ConvertTo-Alert'
+  'Out-WebError'
 
 )
 

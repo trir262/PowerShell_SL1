@@ -1,7 +1,6 @@
-﻿task . InstallDependencies, Clean, Analyze, Analyze_pester, Archive #, Publish, UpdateVersion
+﻿task . InstallDependencies, Clean, Analyze, Analyze_pester, Archive, UpdateVersion
 
 task InstallDependencies {
-    Install-Module PSFramework -Force
     Install-Module Pester -Force -SkipPublisherCheck
     Install-Module PSScriptAnalyzer -Force
 }
@@ -10,7 +9,6 @@ task Analyze_pester {
     . .\pester_build.ps1 -TestGeneral:$False
 }
 task Analyze {
-#    write-host $BuildRoot
     $scriptAnalyzerParams = @{
         Path = "$BuildRoot\"
         Severity = @('Error', 'Warning')
