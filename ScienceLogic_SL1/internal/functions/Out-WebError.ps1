@@ -13,7 +13,7 @@
                     ([System.Net.HttpStatusCode]::Unauthorized) { $WebError.Response }
                     ([System.Net.HttpStatusCode]::NotFound) { $WebError.Response }
                     ([system.net.httpstatuscode]::Forbidden) { $WebError.Response }
-                    ([System.Net.HttpStatusCode]::BadRequest) { throw $WebError }
+                    ([System.Net.HttpStatusCode]::BadRequest) { Write-Error -Message "The requested actino failed. Returned information from ScienceLogic: $($WebError.Response.Headers['x-em7-status-code']); $($WebError.Response.Headers['x-em7-status-message'])" }
                     ([System.Net.HttpStatusCode]::NotImplemented) { $WebError.Response }
                     default { $_ }
                 }
