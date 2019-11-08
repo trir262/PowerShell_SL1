@@ -38,7 +38,7 @@
 				#If we want to use body and support form-based filters, we need to use a dotnet webbrowser.
 				Write-Verbose "In Get Mode"
 				try {
-					$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Cred -ContentType $ContentType -ErrorAction SilentlyContinue -Verbose:$false
+					$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Script:SL1Defaults.Credential -ContentType $ContentType -ErrorAction SilentlyContinue -Verbose:$false
 					switch ([System.Net.HttpStatusCode]($IWRResponse.StatusCode)) {
 						( [System.Net.HttpStatusCode]::OK ) { $IWRResponse }
 						( [System.Net.HttpStatusCode]::Redirect ) { Invoke-SL1Request -Method $Method -Uri "$($Script:SL1Defaults.APIRoot)$($IWRResponse.Headers['Location'])" }
@@ -53,7 +53,7 @@
 				Write-Verbose "In Post Mode"
 				try {
 					if ($body) {
-						$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Cred -ContentType $ContentType -Body $Body -ErrorAction Stop -errorvariable IWRError -Verbose:$false
+						$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Script:SL1Defaults.Credential -ContentType $ContentType -Body $Body -ErrorAction Stop -errorvariable IWRError -Verbose:$false
 						switch ([System.Net.HttpStatusCode]($IWRResponse.StatusCode)) {
 							( [System.Net.HttpStatusCode]::OK )       { $IWRResponse }
 							( [System.Net.HttpStatusCode]::Created )  { $IWRResponse }
