@@ -2,7 +2,7 @@
 	about_ScienceLogic_SL1
 	
 SHORT DESCRIPTION
-	Module to wrap the ScienceLogic API and GraphQL possibilities
+	Module to wrap the ScienceLogic API and GraphQL possibilities.
 	
 LONG DESCRIPTION
 	This module is a wrapper for the ScienceLogic API and the ScienceLogic GraphQL. It allows you to get information from and store data to a ScienceLogic platform.

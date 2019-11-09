@@ -39,12 +39,12 @@ task Clean {
 task Archive {
     $Artifacts = "$BuildRoot\Artifacts\$((("$($BuildFile)" -split '\\')[-1] -split '\.')[0])"
     ($buildroot -split '\\')[-1] | Out-Null
-    Copy-Item -Path .\ScienceLogic_SL1.psd1 -Destination "$Artifacts"
-    Copy-Item -Path .\ScienceLogic_SL1.psm1 -Destination "$Artifacts"
-    Copy-Item -Path .\functions -Destination "$Artifacts" -Recurse
-    Copy-Item -Path .\internal -Destination "$Artifacts" -Recurse
-	Copy-Item -Path .\xml -Destination "$Artifacts" -Recurse
-	Copy-Item -Path .\en-us -Destination "$Artifacts" -Recurse
+    Copy-Item -Path .\ScienceLogic_SL1.psd1 -Destination "$Artifacts" -Force
+    Copy-Item -Path .\ScienceLogic_SL1.psm1 -Destination "$Artifacts" -Force
+    Copy-Item -Path .\functions -Destination "$Artifacts" -Recurse -Force
+    Copy-Item -Path .\internal -Destination "$Artifacts" -Recurse -Force
+	Copy-Item -Path .\xml -Destination "$Artifacts" -Recurse -Force
+	Copy-Item -Path .\en-us -Destination "$Artifacts" -Recurse -Force
 }
 
 task Publish {
