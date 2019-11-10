@@ -1,4 +1,7 @@
 version: 0.0.{build}
+environment:
+  NuGetApiKey:
+    secure: 0nuoecq6I9t5vMvOG7d/zT0q/exvN5gT0BBey8jcLE69+jbvw1v6c9RLE1kEqYQC
 branches:
   only:
   - master
@@ -6,24 +9,15 @@ init:
 - ps: git config --global core.autocrlf true
 install:
 - ps: >-
-    Write-Host "PowerShell Version:" $PSVersionTable.PSVersion.tostring()
-
     Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-
-    Install-Module Pester, PSFramework, PSModuleDevelopment, PSUtil, PSScriptAnalyzer, InvokeBuild -Force
+    Install-Module Pester, PSFramework, PSModuleDevelopment, PSUtil, PSScriptAnalyzer, InvokeBuild, PSDeploy -Force
 build_script:
 - ps: >-
-    $ErrorActionPreference = 'Stop'
-
-    #Update-Help # we need up-to-date help content for tests
-
     cd .\ScienceLogic_SL1
-
     Invoke-Build
 test_script:
 - ps: >-
     cd tests
-
     .\pester.ps1
 artifacts:
 - path: ScienceLogic_SL1/Artifacts
