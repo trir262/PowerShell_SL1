@@ -1,6 +1,6 @@
-Write-PSFMessage -Level Critical -Message "Reimporting ScienceLogic_SL1 module"
-Remove-Module ScienceLogic_SL1 -ErrorAction Ignore
-Import-Module "$PSScriptRoot\..\..\ScienceLogic_SL1.psd1"
+#Write-PSFMessage -Level Critical -Message "Reimporting ScienceLogic_SL1 module"
+#Remove-Module ScienceLogic_SL1 -ErrorAction Ignore
+#Import-Module "$PSScriptRoot\..\..\ScienceLogic_SL1.psd1"
 InModuleScope 'ScienceLogic_SL1' {
     Describe 'Connect-SL1' {
         BeforeAll {
