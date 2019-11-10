@@ -19,6 +19,10 @@ test_script:
 - ps: >-
     cd tests;
     .\pester.ps1
+
 artifacts:
 - path: ScienceLogic_SL1/Artifacts
   name: ScienceLogic_SL1
+before_deploy:
+- ps: >-
+    .\Deploy.psdeploy.ps1

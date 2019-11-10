@@ -1,4 +1,4 @@
-﻿task . InstallDependencies, Clean, Analyze, Archive, UpdateVersion
+﻿task . InstallDependencies, Clean, Analyze, UpdateVersion, Archive
 
 task InstallDependencies {
     Install-Module Pester -Force -SkipPublisherCheck
