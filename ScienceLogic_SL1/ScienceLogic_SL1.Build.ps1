@@ -1,4 +1,4 @@
-﻿task . InstallDependencies, Clean, Analyze, UpdateVersion, Archive, SendToPSGallery
+﻿task . InstallDependencies, Clean, Analyze, UpdateVersion, Archive, runPester, SendToPSGallery
 
 task InstallDependencies {
     Install-Module Pester -Force -SkipPublisherCheck
@@ -75,6 +75,10 @@ task UpdateVersion {
     }
 }
 
+task runPester {
+    cd tests
+    .\pester.ps1
+}
 task SendToPSGallery {
     $Params= @{
         Path="C:\projects\powershell-sl1\ScienceLogic_SL1";
