@@ -15,11 +15,6 @@ build_script:
 - ps: >-
     cd .\ScienceLogic_SL1;
     Invoke-Build
-test_script:
-- ps: >-
-    cd tests;
-    .\pester.ps1
-
 artifacts:
 - path: ScienceLogic_SL1/Artifacts
   name: ScienceLogic_SL1
