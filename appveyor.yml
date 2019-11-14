@@ -25,4 +25,9 @@ artifacts:
   name: ScienceLogic_SL1
 before_deploy:
 - ps: >-
-    .\Deploy.psdeploy.ps1
+    $Params= @{
+      Path="C:\projects\powershell-sl1\ScienceLogic_SL1";
+      Force=$true;
+      Recurse=$False;
+    }
+    invoke-PSDeploy @Params
