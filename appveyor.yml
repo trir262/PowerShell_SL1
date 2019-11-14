@@ -23,11 +23,3 @@ test_script:
 artifacts:
 - path: ScienceLogic_SL1/Artifacts
   name: ScienceLogic_SL1
-before_deploy:
-- ps: >-
-    $Params= @{
-      Path="C:\projects\powershell-sl1\ScienceLogic_SL1";
-      Force=$true;
-      Recurse=$False;
-    }
-    invoke-PSDeploy @Params

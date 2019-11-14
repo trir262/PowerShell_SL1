@@ -1,4 +1,4 @@
-﻿task . InstallDependencies, Clean, Analyze, UpdateVersion, Archive
+﻿task . InstallDependencies, Clean, Analyze, UpdateVersion, Archive, SendToPSGallery
 
 task InstallDependencies {
     Install-Module Pester -Force -SkipPublisherCheck
@@ -73,4 +73,13 @@ task UpdateVersion {
         Write-Error -Message $_.Exception.Message
         $host.SetShouldExit($LastExitCode)
     }
+}
+
+task SendToPSGallery {
+    $Params= @{
+        Path="C:\projects\powershell-sl1\ScienceLogic_SL1";
+        Force=$true;
+        Recurse=$False;
+      }
+      invoke-PSDeploy @Params
 }
