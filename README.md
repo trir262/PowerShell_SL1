@@ -5,6 +5,10 @@
 PowerShell wrapper for ScienceLogic SL1 REST API and the GraphQL language.
 SL1 is the new name of ScienceLogic's EM7. their API has been rewritten and is enhanced.
 
+## Issue tracking
+
+Issues are currently tracked in [azure devops](https://dev.azure.com/trammeke/ScienceLogic_SL1_test1/_workitems/recentlyupdated).
+
 ## Installation
 
 ```powershell
