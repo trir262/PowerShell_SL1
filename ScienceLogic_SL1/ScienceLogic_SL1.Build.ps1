@@ -1,4 +1,4 @@
-﻿task . InstallDependencies, Clean, Analyze, UpdateVersion, Archive, runPester, SendToPSGallery
+﻿task . InstallDependencies, Clean, Analyze, UpdateVersion, Archive, runPester #, SendToPSGallery
 
 task InstallDependencies {
     Install-Module Pester -Force -SkipPublisherCheck
